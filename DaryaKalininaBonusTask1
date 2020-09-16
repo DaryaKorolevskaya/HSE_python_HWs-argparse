@@ -1,0 +1,40 @@
+import argparse
+parser = argparse.ArgumentParser(description='Ask some questions.')
+parser.add_argument('-n', '--name')
+parser.add_argument('-g', '--gender', choices=['male', 'female'])
+parser.add_argument('height', type=float)
+parser.add_argument('weight', type=float)
+parser.add_argument('sleep', type=int)
+parser.add_argument('meals', type=int)
+parser.add_argument('fruits', type=int)
+parser.add_argument('steps', type=int)
+parser.add_argument('health', choices=['No', 'Yes, but I do not see a doctor',
+                                                   'Yes, I have been undergoing medical examination in the last 3 years'])
+parser.add_argument('mood', choices=['good', 'neutral', 'bad'])
+parser.add_argument('happiness', choices=['During the week', 'During the morning', 'During the year'])
+
+args = parser.parse_args()
+score = 0
+if 8 >= args.sleep >= 7:
+    score += 1
+if 4 <= args.meals <= 5:
+    score += 1
+if args.fruits >= 500:
+    score += 1
+if args.steps >= 10000:
+    score += 1
+if args.health == 'Yes, I have been undergoing medical examination in the last 3 years':
+    score += 1
+if args.mood == 'good':
+    score += 1
+if args.happiness == 'During the week' or args.happiness == 'During the morning':
+    score += 1
+BMI = args.weight / args.height ** 2
+if 18.5 <= BMI <= 24.9:
+    score += 1
+if score == 8:
+    print('Your index of a healthy lifestyle is 8/8, which means that you are a true leader in a healthy lifestyle!')
+elif score >= 5:
+    print('Your health index is [5-7]/8, which means that you are on the right track!')
+else:
+    print('Your healthy lifestyle index is [0-4]/8 🤢, you need to rethink your healthy lifestyle!')
